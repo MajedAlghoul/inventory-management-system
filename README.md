@@ -16,7 +16,7 @@ This is an inventory management system that utilizes rest API and SpringBoot to 
 
     - Item Name: Describes Items
 
-    - Item Price: Gives Value TO Items
+    - Item Price: Gives Value To Items
 
     - Item Avalibility: Evaluates If The Item Can Be Ordered
 
