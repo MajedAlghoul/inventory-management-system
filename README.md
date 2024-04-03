@@ -7,7 +7,7 @@ This project includes X sections
 ### Resources Description
 1. Item: Describes the relations and attributes a product in the system has.<br>
     Attributes:<br>
-    <ol type="a">
+    <ol type="A">
     <li>Item ID: PK, Identifies Items Uniquly</li>
     <li>Item Name: Describes Items</li>
     <li>Item Price: Gives Value TO Items</li>
