@@ -8,7 +8,7 @@ This is an inventory management system that utilizes rest API and SpringBoot to 
 
 ### Resources Description
 
-#### <Strong>1. Item: Describes the relations and attributes a product in the system has.</Strong><br>
+<Strong>1. Item: Describes the relations and attributes a product in the system has.</Strong><br>
 
     Attributes:<br>
 
