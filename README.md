@@ -4,7 +4,7 @@ This is an inventory management system that utilizes rest API and SpringBoot to 
 
 ## ER Diagram design
 
-![Alt text](ER_Diagram.png "ER Diagram")
+![Alt text](/Images/ER_Diagram.png "ER Diagram")
 
 ### Resources Description
 
