@@ -5,12 +5,12 @@ This project includes X sections
 ## section 1: ER Diagram design
 ![Alt text](ER_Diagram.png "ER Diagram")
 ### Resources Description
-1. Item: Describes the relations and attributes a product in the system has.
-    Attributes:
-    A)Item ID: PK, Identifies Items Uniquly
-    B)Item Name: Describes Items
-    C)Item Price: Gives Value TO Items
-    D)Item Avalibility: Evaluates If The Item Can Be Ordered
+1. Item: Describes the relations and attributes a product in the system has.<br>
+    Attributes:<br>
+    A. Item ID: PK, Identifies Items Uniquly
+    B. Item Name: Describes Items
+    C. Item Price: Gives Value TO Items
+    D. Item Avalibility: Evaluates If The Item Can Be Ordered
 2. Inventory: Describes the inventory management of the products in the system, including its quantity.
     Attributes:
     A)Item ID: PK, FK, Identifies Items In Inventory Uniquly
