@@ -2,15 +2,13 @@
 
 This is an inventory management system that utilizes rest API and SpringBoot to interact and manage the relationships and transactions between different resources in the system.
 
-  
-
 ## ER Diagram design
 
 ![Alt text](ER_Diagram.png "ER Diagram")
 
 ### Resources Description
 
-1. <strong>Item: Describes the relations and attributes a product in the system has.</Strong><br>
+<Strong>1. Item: Describes the relations and attributes a product in the system has.</Strong><br>
 
     Attributes:<br>
 
@@ -30,7 +28,7 @@ This is an inventory management system that utilizes rest API and SpringBoot to 
 
     - Quantity: Declares The Available Quantity Of An Item
 
-3. Customer: Describes the relations and attributes customers have in the system.<br>
+<Strong>3. Customer: Describes the relations and attributes customers have in the system.</Strong><br>
 
     Attributes:<br>
 
@@ -40,7 +38,7 @@ This is an inventory management system that utilizes rest API and SpringBoot to 
 
     - Balance: Describes How Much Money Customers Deposited In Their Account
 
-4. Order: Manages the relationship between customers and products as an order.<br>
+<Strong>4. Order: Manages the relationship between customers and products as an order.</Strong><br>
 
     Attributes:<br>
 
