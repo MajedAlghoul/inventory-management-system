@@ -7,12 +7,10 @@ This project includes X sections
 ### Resources Description
 1. Item: Describes the relations and attributes a product in the system has.<br>
     Attributes:<br>
-    <ol type="A">
-    <li>Item ID: PK, Identifies Items Uniquly</li>
-    <li>Item Name: Describes Items</li>
-    <li>Item Price: Gives Value TO Items</li>
-    <li>Item Avalibility: Evaluates If The Item Can Be Ordered</li>
-    </ol>
+    - A. Item ID: PK, Identifies Items Uniquly
+    - B. Item Name: Describes Items
+    - C. Item Price: Gives Value TO Items
+    - D. Item Avalibility: Evaluates If The Item Can Be Ordered
 2. Inventory: Describes the inventory management of the products in the system, including its quantity.
     Attributes:
     A)Item ID: PK, FK, Identifies Items In Inventory Uniquly
