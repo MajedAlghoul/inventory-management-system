@@ -12,15 +12,15 @@ This is an inventory management system that utilizes rest API and SpringBoot to 
 
 1. <strong>Item: Describes the relations and attributes a product in the system has.</Strong><br>
 
-    Attributes:<br>
+        Attributes:<br>
 
-    - Item ID: PK, Identifies Items Uniquly
+        - Item ID: PK, Identifies Items Uniquly
 
-    - Item Name: Describes Items
+        - Item Name: Describes Items
 
-    - Item Price: Gives Value TO Items
+        - Item Price: Gives Value TO Items
 
-    - Item Avalibility: Evaluates If The Item Can Be Ordered
+        - Item Avalibility: Evaluates If The Item Can Be Ordered
 
 2. Inventory: Describes the inventory management of the products in the system, including its quantity.<br>
 
