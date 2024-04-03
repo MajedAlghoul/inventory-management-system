@@ -27,7 +27,7 @@ This project includes X sections
     C)Item ID: FK, Identifies Items Ordered
     D)Order Quantity: Evaluates The Quantity Of The Ordered Item
 ### Resources Relationships
-Inventory <-> Item: One to One, as if each item has one entery in the inventory.
+Inventory <-> Item: One to One, as if each item has one entery in the inventory.<br>
 Item <-> Order: One to Many, as if each item Can be Ordered Many Times.
 Customer <-> Order: One to Many, as if each customer can Make Many orders.
 ## Section 2: Description of each ER resource methods
