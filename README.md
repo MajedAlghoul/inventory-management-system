@@ -10,7 +10,7 @@ This is an inventory management system that utilizes rest API and SpringBoot to 
 
 ### Resources Description
 
-1. Item: Describes the relations and attributes a product in the system has.<br>
+1. <strong>Item: Describes the relations and attributes a product in the system has.</Strong><br>
 
     Attributes:<br>
 
@@ -52,7 +52,7 @@ This is an inventory management system that utilizes rest API and SpringBoot to 
 
     - Order Quantity: Evaluates The Quantity Of The Ordered Item
 
-### Resources Relationships
+### Resources's Relationships
 
 - Inventory <-> Item: One to One, as if each item has one entry in the inventory.<br>
 
