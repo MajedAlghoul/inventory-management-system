@@ -60,7 +60,33 @@ This is an inventory management system that utilizes rest API and SpringBoot to 
 
 ## Description of each ER resource methods
 
-  
+### Products Collection Resource (/products)
+
+| HTTP request | Operation Description | HTTP status codes | Request sample | Response sample |
+|--------------|-----------------------|-------------------|----------------|-----------------|
+| `GET /products` | Retrieves a list of products | 200 OK | N/A | `[{"id":1,"name":"Product A","price":10.99},{"id":2,"name":"Product B","price":15.49}]` |
+| `POST /products` | Creates a new product | 201 Created, 400 Bad Request | `{"name":"Product C","price":12.99}` | `{"id":3,"name":"Product C","price":12.99}` |
+
+### Customers Collection Resource (/customers)
+
+| HTTP request | Operation Description | HTTP status codes | Request sample | Response sample |
+|--------------|-----------------------|-------------------|----------------|-----------------|
+| `GET /customers` | Retrieves a list of customers | 200 OK | N/A | `[{"id":1,"name":"Alice","email":"alice@example.com"},{"id":2,"name":"Bob","email":"bob@example.com"}]` |
+| `POST /customers` | Creates a new customer | 201 Created, 400 Bad Request | `{"name":"Charlie","email":"charlie@example.com"}` | `{"id":3,"name":"Charlie","email":"charlie@example.com"}` |
+
+### Orders Collection Resource (/orders)
+
+| HTTP request | Operation Description | HTTP status codes | Request sample | Response sample |
+|--------------|-----------------------|-------------------|----------------|-----------------|
+| `GET /orders` | Retrieves a list of orders | 200 OK | N/A | `[{"id":1,"customerId":1,"productId":2,"quantity":1},{"id":2,"customerId":2,"productId":1,"quantity":2}]` |
+| `POST /orders` | Creates a new order | 201 Created, 400 Bad Request | `{"customerId":1,"productId":2,"quantity":1}` | `{"id":3,"customerId":1,"productId":2,"quantity":1}` |
+
+### Inventory Collection Resource (/inventory)
+
+| HTTP request | Operation Description | HTTP status codes | Request sample | Response sample |
+|--------------|-----------------------|-------------------|----------------|-----------------|
+| `GET /inventory` | Retrieves the inventory list | 200 OK | N/A | `[{"productId":1,"quantity":100},{"productId":2,"quantity":150}]` |
+| `PUT /inventory/{productId}` | Updates inventory quantity for a product | 200 OK, 404 Not Found | `{"productId":1,"quantity":90}` | `{"productId":1,"quantity":90}` |
 
 ## OpenAPI specification Design
 
