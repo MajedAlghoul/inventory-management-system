@@ -363,7 +363,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
     delete:
       tags:
-        - 
+        - Customer
       summary: Deletes all Customers
       responses:
         '200':
