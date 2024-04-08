@@ -6,7 +6,7 @@ info:
 
     Some useful links:
     - [The Inventory Management System repository](https://github.com/jed9h3/inventory-management-system)
-    - [The source API definition for the Inventory Management System](https://github.com/jed9h3/inventory-management-system)
+    - [The source API definition for the Inventory Management System](https://github.com/jed9h3/inventory-management-system/blob/main/openapi3_1.yaml)
 
   contact:
     email: majed.alghoul3@gmail.com
