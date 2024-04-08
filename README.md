@@ -107,7 +107,9 @@ This is an inventory management system that utilizes rest API and SpringBoot to 
 
 ## OpenAPI specification Design
 
-  
+    - [API on swaggerhub](https://app.swaggerhub.com/apis/MajedAlghoul/inventory-management_api/1.0.0)
+
+    - [API documentation on swaggerhub](https://app.swaggerhub.com/apis-docs/MajedAlghoul/inventory-management_api/1.0.0)
 
 ## SpringBoot Implementation
 
