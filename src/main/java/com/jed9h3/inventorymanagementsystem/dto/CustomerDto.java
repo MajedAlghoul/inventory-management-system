@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 
 @Data
 public class CustomerDto {
-    private Long customerID;
+    private Long customerId;
     private String customerName;
     private BigDecimal balance;
 }

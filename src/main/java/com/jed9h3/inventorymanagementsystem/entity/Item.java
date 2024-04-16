@@ -15,7 +15,7 @@ import java.util.List;
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long itemID;
+    private Long itemId;
     private String itemName;
     private BigDecimal price;
     @OneToOne(mappedBy = "item", cascade = CascadeType.ALL)

@@ -11,11 +11,11 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Inventory {
     @Id
-    private Long id;
+    private Long itemId;
 
     @OneToOne
     @MapsId
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "item_id")
     private Item item;
 
     private Long availableQuantity;

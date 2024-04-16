@@ -15,7 +15,7 @@ import java.util.List;
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long customerID;
+    private Long customerId;
     private String customerName;
     private BigDecimal balance;
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
