@@ -40,13 +40,16 @@ public class OrderServiceImp implements OrderService {
 
     @Override
     public OrderDto createOrder(OrderDto orderDto) {
-        checkQuantity(orderDto.getItemId(),orderDto.getOrderedQuantity());
+        System.out.println(orderDto.getItemId()+"s--------");
+        checkQuantity(orderDto.getItemId(),orderDto.getOrderedQuantity(),0L);
         BigDecimal remaining=calculateTotal(orderDto.getItemId(),orderDto.getOrderedQuantity());
         checkBalance(orderDto.getCustomerId(),remaining, BigDecimal.valueOf(0));
         adjustBalance(orderDto.getCustomerId(),remaining,false);
         adjustQuantity(orderDto.getItemId(),orderDto.getOrderedQuantity(),false);
         Order order = convertToEntity(orderDto);
+        System.out.println(order.getItem().getItemId()+"s--------");
         Order savedOrder = orderRepository.save(order);
+        System.out.println(savedOrder.getItem().getItemId()+"s--------");
         return convertToDto(savedOrder);
     }
 
@@ -81,21 +84,30 @@ public class OrderServiceImp implements OrderService {
             throw new BadRequestException("Request missing required attributes");
         }
         if (!cusid.equals(order.getCustomer().getCustomerId())){
-            System.out.println("how-------------");
-            System.out.println(cusid);
-            System.out.println(order.getCustomer().getCustomerId());
             throw new BadRequestException("Customer id cannot be updated");
         }
-        checkQuantity(imid,qua);
-        BigDecimal oldremaining=calculateTotal(order.getCustomer().getCustomerId(),order.getOrderedQuantity());
-        BigDecimal newremaining=calculateTotal(imid,qua);
+
+
+        Long tempQ=order.getOrderedQuantity();
+        BigDecimal oldremaining=calculateTotal(order.getCustomer().getCustomerId(),tempQ);
+        BigDecimal newremaining;
+        if (imid.equals(order.getItem().getItemId()) && qua.equals(tempQ)){
+            throw new NoContentException("No attributes to be updated");
+        }
+        if (imid.equals(order.getItem().getItemId())){
+            checkQuantity(imid,qua,tempQ);
+        }else {
+            checkQuantity(imid,qua,0L);
+        }
+        newremaining=calculateTotal(imid,qua);
         checkBalance(cusid,newremaining,oldremaining);
+        adjustQuantity(order.getItem().getItemId(),tempQ,true);
         adjustBalance(cusid,oldremaining,true);
-        adjustBalance(cusid,newremaining,false);
-        adjustQuantity(order.getItem().getItemId(),order.getOrderedQuantity(),true);
         adjustQuantity(imid,qua,false);
-        order.setItem(itemService.convertToEntity(itemService.getItemById(imid)));
+        order.setItem(itemService.getRawItemById(imid));
         order.setOrderedQuantity(qua);
+        adjustBalance(cusid,newremaining,false);
+
         Order savedOrder = orderRepository.save(order);
         return convertToDto(savedOrder);
     }
@@ -112,23 +124,52 @@ public class OrderServiceImp implements OrderService {
         if (imid==null && qua==null){
             throw new NoContentException("No attributes to be updated");
         }
-        checkQuantity(imid,qua);
+        cusid=order.getCustomer().getCustomerId();
         Long tempQ=order.getOrderedQuantity();
-        BigDecimal oldremaining=calculateTotal(order.getCustomer().getCustomerId(),order.getOrderedQuantity());
-        BigDecimal newremaining=calculateTotal(imid,qua);
-        checkBalance(cusid,newremaining,oldremaining);
-        adjustQuantity(order.getItem().getItemId(),order.getOrderedQuantity(),true);
-        adjustBalance(cusid,oldremaining,true);
+        BigDecimal oldremaining=calculateTotal(order.getCustomer().getCustomerId(),tempQ);
+        BigDecimal newremaining;
         if(imid!=null && qua!=null){
+            if (imid.equals(order.getItem().getItemId()) && qua.equals(tempQ)){
+                throw new NoContentException("No attributes to be updated");
+            }
+            if (imid.equals(order.getItem().getItemId())){
+                checkQuantity(imid,qua,tempQ);
+            }else {
+                checkQuantity(imid,qua,0L);
+            }
+            newremaining=calculateTotal(imid,qua);
+            checkBalance(cusid,newremaining,oldremaining);
+            adjustQuantity(order.getItem().getItemId(),tempQ,true);
+            adjustBalance(cusid,oldremaining,true);
+
             adjustQuantity(imid,qua,false);
-            order.setItem(itemService.convertToEntity(itemService.getItemById(imid)));
+            order.setItem(itemService.getRawItemById(imid));
             order.setOrderedQuantity(qua);
             adjustBalance(cusid,newremaining,false);
         }else if (imid!=null){
+            if (imid.equals(order.getItem().getItemId())){
+                throw new NoContentException("No attributes to be updated");
+            }
+            checkQuantity(imid,tempQ,0L);
+
+            newremaining=calculateTotal(imid,tempQ);
+            checkBalance(cusid,newremaining,oldremaining);
+            adjustQuantity(order.getItem().getItemId(),tempQ,true);
+            adjustBalance(cusid,oldremaining,true);
+
             adjustQuantity(imid,tempQ,false);
-            order.setItem(itemService.convertToEntity(itemService.getItemById(imid)));
+            order.setItem(itemService.getRawItemById(imid));
             adjustBalance(cusid,oldremaining,false);
         }else {
+            if (qua.equals(tempQ)){
+                throw new NoContentException("No attributes to be updated");
+            }
+            checkQuantity(order.getCustomer().getCustomerId(),qua,tempQ);
+            newremaining=calculateTotal(order.getCustomer().getCustomerId(),qua);
+            checkBalance(cusid,newremaining,oldremaining);
+            adjustQuantity(order.getItem().getItemId(),tempQ,true);
+            adjustBalance(cusid,oldremaining,true);
+
             adjustQuantity(order.getItem().getItemId(),qua,false);
             order.setOrderedQuantity(qua);
             adjustBalance(order.getCustomer().getCustomerId(),newremaining,false);
@@ -150,21 +191,21 @@ public class OrderServiceImp implements OrderService {
         OrderDto result = new OrderDto();
         result.setOrderId(order.getOrderId());
         result.setCustomerId(order.getCustomer().getCustomerId());
-        result.setCustomerId(order.getItem().getItemId());
+        result.setItemId(order.getItem().getItemId());
         result.setOrderedQuantity(order.getOrderedQuantity());
         return result;
     }
 
     private Order convertToEntity(OrderDto orderDto) {
         Order result = new Order();
-        result.setItem(itemService.convertToEntity(itemService.getItemById(orderDto.getItemId())));
-        result.setCustomer(customerService.convertToEntity(customerService.getCustomerById(orderDto.getCustomerId())));
+        result.setItem(itemService.getRawItemById(orderDto.getItemId()));
+        result.setCustomer(customerService.getRawCustomerById(orderDto.getCustomerId()));
         result.setOrderedQuantity(orderDto.getOrderedQuantity());
         return result;
     }
-    private boolean checkAvailability(Long imid,Long qua){
+    private boolean checkAvailability(Long imid,Long qua,Long bias){
         Long avqua=inventoryService.getInventoryById(imid).getAvailableQuantity();
-        return qua <= avqua;
+        return qua <= avqua+bias;
     }
     private void adjustQuantity(Long imid,Long qua,boolean sign){
         Long avqua=inventoryService.getInventoryById(imid).getAvailableQuantity();
@@ -174,11 +215,11 @@ public class OrderServiceImp implements OrderService {
             inventoryService.getInventoryById(imid).setAvailableQuantity(avqua-qua);
         }
     }
-    private void checkQuantity(Long imid,Long qua){
+    private void checkQuantity(Long imid,Long qua,Long bias){
         if (qua<=0){
             throw new BadRequestException("Order quantity cannot be negative or zero");
         }
-        if (!checkAvailability(imid,qua)){
+        if (!checkAvailability(imid,qua,bias)){
             throw new BadRequestException("Quantity exceeds inventory");
         }
     }

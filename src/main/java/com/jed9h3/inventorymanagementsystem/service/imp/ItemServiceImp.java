@@ -54,6 +54,11 @@ public class ItemServiceImp implements ItemService {
     }
 
     @Override
+    public Item getRawItemById(long id) {
+        return itemRepository.findById(id).orElseThrow(() -> new NotFoundException("Item with id "+id+" doesnt exist"));
+    }
+
+    @Override
     public ItemDto updateItemById(ItemDto itemDto, long id) {
         Item item = itemRepository.findById(id).orElseThrow(() -> new NotFoundException("Item with id "+id+" doesnt exist"));
         String nm=itemDto.getItemName();

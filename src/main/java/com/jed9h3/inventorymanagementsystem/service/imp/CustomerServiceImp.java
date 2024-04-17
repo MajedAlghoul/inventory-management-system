@@ -53,6 +53,11 @@ public class CustomerServiceImp implements CustomerService {
     }
 
     @Override
+    public Customer getRawCustomerById(long id) {
+        return customerRepository.findById(id).orElseThrow(() -> new NotFoundException("Customer with id "+id+" doesnt exist"));
+    }
+
+    @Override
     public CustomerDto updateCustomerById(CustomerDto customerDto, long id) {
         Customer customer = customerRepository.findById(id).orElseThrow(() -> new NotFoundException("Customer with id "+id+" doesnt exist"));
         String nm=customerDto.getCustomerName();

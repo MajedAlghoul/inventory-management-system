@@ -10,6 +10,7 @@ public interface ItemService {
     ItemDto createItem(ItemDto itemDto);
     void deleteAllItems();
     ItemDto getItemById(long id);
+    Item getRawItemById(long id);
     ItemDto updateItemById(ItemDto itemDto, long id);
     ItemDto partiallyUpdateItemById(ItemDto itemDto, long id);
     void deleteItemById(long id);
