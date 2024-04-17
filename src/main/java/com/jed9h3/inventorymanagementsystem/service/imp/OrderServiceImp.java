@@ -81,6 +81,9 @@ public class OrderServiceImp implements OrderService {
             throw new BadRequestException("Request missing required attributes");
         }
         if (!cusid.equals(order.getCustomer().getCustomerId())){
+            System.out.println("how-------------");
+            System.out.println(cusid);
+            System.out.println(order.getCustomer().getCustomerId());
             throw new BadRequestException("Customer id cannot be updated");
         }
         checkQuantity(imid,qua);

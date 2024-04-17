@@ -6,6 +6,5 @@ import lombok.Data;
 @Data
 public class InventoryDto {
     private Long itemId;
-    @NotNull(message = "Quantity cannot be null")
     private Long availableQuantity;
 }

@@ -3,6 +3,7 @@ package com.jed9h3.inventorymanagementsystem.service.imp;
 import com.jed9h3.inventorymanagementsystem.dto.ItemDto;
 import com.jed9h3.inventorymanagementsystem.entity.Inventory;
 import com.jed9h3.inventorymanagementsystem.entity.Item;
+import com.jed9h3.inventorymanagementsystem.exception.BadRequestException;
 import com.jed9h3.inventorymanagementsystem.exception.NoContentException;
 import com.jed9h3.inventorymanagementsystem.exception.NotFoundException;
 import com.jed9h3.inventorymanagementsystem.repository.ItemRepository;
@@ -57,9 +58,9 @@ public class ItemServiceImp implements ItemService {
         Item item = itemRepository.findById(id).orElseThrow(() -> new NotFoundException("Item with id "+id+" doesnt exist"));
         String nm=itemDto.getItemName();
         BigDecimal prc=itemDto.getPrice();
-        //if (nm==null || nm.isEmpty() || blc==null){
-        //    throw new BadRequestException("Request missing required attributes");
-        //}
+        if (nm==null || nm.isEmpty() || prc==null){
+            throw new BadRequestException("Request missing required attributes");
+        }
         item.setItemName(nm);
         item.setPrice(prc);
         Item savedItem = itemRepository.save(item);

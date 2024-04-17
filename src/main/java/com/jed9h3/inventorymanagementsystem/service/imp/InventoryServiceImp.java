@@ -2,6 +2,7 @@ package com.jed9h3.inventorymanagementsystem.service.imp;
 
 import com.jed9h3.inventorymanagementsystem.dto.InventoryDto;
 import com.jed9h3.inventorymanagementsystem.entity.Inventory;
+import com.jed9h3.inventorymanagementsystem.exception.BadRequestException;
 import com.jed9h3.inventorymanagementsystem.exception.NoContentException;
 import com.jed9h3.inventorymanagementsystem.exception.NotFoundException;
 import com.jed9h3.inventorymanagementsystem.repository.InventoryRepository;
@@ -36,9 +37,9 @@ public class InventoryServiceImp implements InventoryService {
     public InventoryDto updateInventoryById(InventoryDto inventoryDto, long id) {
         Inventory inventory = inventoryRepository.findById(id).orElseThrow(() -> new NotFoundException("Inventory with id "+id+" doesnt exist"));
         Long qua=inventoryDto.getAvailableQuantity();
-        //if (nm==null || nm.isEmpty() || blc==null){
-        //    throw new BadRequestException("Request missing required attributes");
-        //}
+        if (qua==null){
+            throw new BadRequestException("Request missing required attributes");
+        }
         inventory.setAvailableQuantity(qua);
         Inventory savedInventory = inventoryRepository.save(inventory);
         return convertToDto(savedInventory);

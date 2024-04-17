@@ -2,6 +2,7 @@ package com.jed9h3.inventorymanagementsystem.service.imp;
 
 import com.jed9h3.inventorymanagementsystem.dto.CustomerDto;
 import com.jed9h3.inventorymanagementsystem.entity.Customer;
+import com.jed9h3.inventorymanagementsystem.exception.BadRequestException;
 import com.jed9h3.inventorymanagementsystem.exception.NoContentException;
 import com.jed9h3.inventorymanagementsystem.exception.NotFoundException;
 import com.jed9h3.inventorymanagementsystem.repository.CustomerRepository;
@@ -56,9 +57,9 @@ public class CustomerServiceImp implements CustomerService {
         Customer customer = customerRepository.findById(id).orElseThrow(() -> new NotFoundException("Customer with id "+id+" doesnt exist"));
         String nm=customerDto.getCustomerName();
         BigDecimal blc=customerDto.getBalance();
-        //if (nm==null || nm.isEmpty() || blc==null){
-        //    throw new BadRequestException("Request missing required attributes");
-        //}
+        if (nm==null || nm.isEmpty() || blc==null){
+            throw new BadRequestException("Request missing required attributes");
+        }
         customer.setCustomerName(nm);
         customer.setBalance(blc);
         Customer savedCustomer = customerRepository.save(customer);
