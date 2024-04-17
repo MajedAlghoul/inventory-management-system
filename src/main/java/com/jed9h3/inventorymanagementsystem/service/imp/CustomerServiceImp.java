@@ -54,8 +54,13 @@ public class CustomerServiceImp implements CustomerService {
     @Override
     public CustomerDto updateCustomerById(CustomerDto customerDto, long id) {
         Customer customer = customerRepository.findById(id).orElseThrow(() -> new NotFoundException("Customer with id "+id+" doesnt exist"));
-        customer.setCustomerName(customerDto.getCustomerName());
-        customer.setBalance(customerDto.getBalance());
+        String nm=customerDto.getCustomerName();
+        BigDecimal blc=customerDto.getBalance();
+        //if (nm==null || nm.isEmpty() || blc==null){
+        //    throw new BadRequestException("Request missing required attributes");
+        //}
+        customer.setCustomerName(nm);
+        customer.setBalance(blc);
         Customer savedCustomer = customerRepository.save(customer);
         return convertToDto(savedCustomer);
     }
@@ -65,6 +70,9 @@ public class CustomerServiceImp implements CustomerService {
         Customer customer = customerRepository.findById(id).orElseThrow(() -> new NotFoundException("Customer with id "+id+" doesnt exist"));
         String nm=customerDto.getCustomerName();
         BigDecimal blc=customerDto.getBalance();
+        if (nm==null && blc==null){
+            throw new NoContentException("No attributes to be updated");
+        }
         if(nm!=null){
             customer.setCustomerName(customerDto.getCustomerName());
         }
@@ -80,16 +88,16 @@ public class CustomerServiceImp implements CustomerService {
         Customer customer = customerRepository.findById(id).orElseThrow(() -> new NotFoundException("Customer with id "+id+" doesnt exist"));
         customerRepository.delete(customer);
     }
-
-    private CustomerDto convertToDto(Customer customer) {
+    @Override
+    public CustomerDto convertToDto(Customer customer) {
         CustomerDto result = new CustomerDto();
         result.setCustomerId(customer.getCustomerId());
         result.setCustomerName(customer.getCustomerName());
         result.setBalance(customer.getBalance());
         return result;
     }
-
-    private Customer convertToEntity(CustomerDto customerDto) {
+    @Override
+    public Customer convertToEntity(CustomerDto customerDto) {
         Customer result = new Customer();
         result.setCustomerName(customerDto.getCustomerName());
         result.setBalance(customerDto.getBalance());

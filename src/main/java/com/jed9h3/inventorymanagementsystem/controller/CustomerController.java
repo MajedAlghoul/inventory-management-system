@@ -41,8 +41,6 @@ public class CustomerController {
         return new ResponseEntity<>("All customers has been deleted successfully.", HttpStatus.OK);
     }
 
-
-
     @GetMapping("/{id}")
     public ResponseEntity<CustomerDto> getCustomerById(
             @PathVariable(name = "id") long id) {

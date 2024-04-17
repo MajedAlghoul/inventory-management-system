@@ -1,6 +1,7 @@
 package com.jed9h3.inventorymanagementsystem.service;
 
 import com.jed9h3.inventorymanagementsystem.dto.CustomerDto;
+import com.jed9h3.inventorymanagementsystem.entity.Customer;
 
 import java.util.List;
 
@@ -12,4 +13,6 @@ public interface CustomerService {
     CustomerDto updateCustomerById(CustomerDto customerDto, long id);
     CustomerDto partiallyUpdateCustomerById(CustomerDto customerDto, long id);
     void deleteCustomerById(long id);
+    CustomerDto convertToDto(Customer customer);
+    Customer convertToEntity(CustomerDto customerDto);
 }
